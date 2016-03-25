@@ -2,16 +2,27 @@
 
 namespace App\Controller;
 
-
 use App\Router\Router;
+use App\View\View;
 
 class BaseController{
+
+    public $view;
+
+    public function __construct(){
+        $viewPath = ROOT.'/app/View.php';
+        if(file_exists($viewPath)){
+            include_once $viewPath;
+            $this->view = new View();
+        }
+    }
 
     public function run(){
 
         $connectorPath = ROOT.'/app/Connection.php';
         $mapperPath = ROOT.'/app/DB.php';
         $routerPath = ROOT.'/app/Router.php';
+
         if(file_exists($mapperPath)){
             include_once $connectorPath;
         }

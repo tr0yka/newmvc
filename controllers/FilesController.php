@@ -6,7 +6,8 @@ class FilesController extends BaseController{
     public function listAction(){
         $fiels = $this->getModel('Files');
         $res = $fiels->fetchAll();
-        print_r($res);
+        $this->view->render(['base'],['files'=>$res]);
+
     }
 
 }
