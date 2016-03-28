@@ -1,0 +1,112 @@
+body{
+    margin: 0px;
+}
+#container{
+    width: 1000px;
+    margin: 0 auto;
+}
+#header{
+    padding: 20px;
+    font-size: 40px;
+    text-align: center;
+    background: #5596C3;
+}
+#header a{
+    color: #FFFFFF;
+    text-decoration: none;
+}
+#panel{
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#filter{
+    float: left;
+    margin-top: 5px;
+}
+#add{
+    float: right;
+    margin-top: 5px;
+}
+#addBtn{
+    background: #5596C3;
+    border-radius: 50%;
+    color: #FFF;
+    padding: 2px 6px;
+    cursor: pointer;
+}
+table{
+    width: 100%;
+}
+table thead th{
+    background: rgba(88, 88, 88, 1);
+    color: #FFFFFF;
+    padding: 5px;
+    cursor: pointer;
+}
+table tbody tr:nth-child(odd){
+    background: #CCCCCC;
+}
+table tbody td{
+    padding: 3px;
+}
+table tbody td a{
+    text-decoration: none;
+    color: #232323;
+}
+table tbody td a:hover{
+    text-decoration: underline;
+}
+#footer{
+    background: #5596C3;
+    color: #FFF;
+    padding: 15px;
+    text-align: right;
+    margin-top: 5px;
+}
+
+#popup{
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    margin-left: -250px;
+    border: 1px solid #B7B7B7;
+    width: 500px;
+    height: 300px;
+    background: #fff;
+    box-shadow: 0px 0px 5px #C3C3C3;
+}
+
+#close{
+    position: absolute;
+    right: 5px;
+    top: -2px;
+    cursor: pointer;
+}
+
+#form_content{
+    position: absolute;
+    top: 16px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+}
+
+#form_content label{
+    display: block;
+    margin-left: 1%;
+}
+
+#form_content input,textarea{
+    width:98%;
+    margin-left: 1%;
+}
+
+#form_content input[type="submit"]{
+    padding: 5px;
+}
+
+#form_content textarea{
+    height: 80px;
+}

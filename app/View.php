@@ -3,9 +3,9 @@ namespace App\View;
 
 class View{
 
-    private $vars = array();
-    private $tpldir = 'views/';
-    private $content_type = '';
+    public $vars = array();
+    private $tpldir = '/views/';
+
     public function __get( $name ){
         if( isset($this->vars[$name]) )
             return $this->vars[$name];
@@ -17,12 +17,11 @@ class View{
         if( file_exists($file) ){
             return file_get_contents($file);
         }else{
-            console( 'Τΰιλ '.$file.' νε νΰιδεν ',__FILE__,__CLASS__,__LINE__ );
-            return '';
+            throw new \Exception('Π¨Π°Π±Π»ΠΎΠ½ '.$file.' Π½Πµ Π½Π°ΠΉΠ΄ΠµΠ½');
         }
     }
     private function exec($file) {
-        eval('?>'.$this->safe( ROOT.$this->tpldir.$file.'.tpl') );
+        eval('?>'.$this->safe( ROOT.$this->tpldir.$file.'.php').'<?php;' );
     }
 
     public function assign( $var, $val='' ) {
@@ -44,13 +43,6 @@ class View{
         $this->assign($vars);
         extract($this->vars);
         $this->exec( $file );
-    }
-    function setContentType( $type ){
-        if( in_array(strtolower($type),array('page','json','html')) )
-            $this->content_type = strtolower($type);
-    }
-    function getContentType( ){
-        return $this->content_type;
     }
 
 }
