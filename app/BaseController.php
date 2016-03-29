@@ -46,4 +46,13 @@ class BaseController{
         }
     }
 
+    public function getConfig(){
+        $configPath = ROOT.'/app/Config.php';
+        if(file_exists($configPath)){
+            include_once $configPath;
+            $config = "\\App\\Config\\Config";
+            return new $config();
+        }
+    }
+
 }

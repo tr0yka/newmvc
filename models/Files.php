@@ -5,6 +5,7 @@ use App\DataBase\DB;
 
 class Files extends DB{
     protected $table = 'files_info';
+    protected $cols = ['fileName','originalName','fileType','fileSize','comment','description','added'];
     private $id;
     private $fileName;
     private $originalName;

@@ -7,30 +7,37 @@ class Router{
 
     public function run(){
         $uri = $this->getURL();
-        $routing = require_once ROOT.'/app/Routes.php';
+        $controller = 'Files';
+        $method = 'list';
+        $elements = explode('/',$uri);
+        if(!empty($elements[0])){
+            $controller = $elements[0];
+        }else{
 
-        foreach ($routing as $pattern => $path) {
-            if(preg_match("~$pattern~",$uri)){
-                $segments = explode('/',$path);
-                $controllerName = ucfirst(array_shift($segments)).'Controller';
-                $actionName = array_shift($segments).'Action';
-
-                if(file_exists(ROOT.'/controllers/'.$controllerName.'.php')){
-                    include_once ROOT.'/controllers/'.$controllerName.'.php';
-                }else{
-                    throw new \Exception('Отсутствует файл контроллера');
-                }
-
-                $class = "\\App\\Controller\\$controllerName";
-                $controller = new $class();
-                $res = $controller->$actionName();
-
-                if($res != null){
-                    break;
-                }
-
-            }
         }
+        if(!empty($elements[1])){
+            $method = $elements[1];
+        }
+        $controllerName = ucfirst($controller).'Controller';
+        $actionName = $method.'Action';
+
+        if(file_exists(ROOT.'/controllers/'.$controllerName.'.php')){
+            include_once ROOT.'/controllers/'.$controllerName.'.php';
+            $class = "\\App\\Controller\\$controllerName";
+            $methods = get_class_methods($class);
+            if(in_array($actionName,$methods)){
+                $controller = new $class();
+                $controller->$actionName();
+            }else{
+                http_response_code(404);
+                echo 'Ошибка 404. Страница не найдена';
+            }
+        }else{
+            http_response_code(404);
+            echo 'Ошибка 404. Страница не найдена';
+        }
+
+
     }
 
     private function getURL(){
