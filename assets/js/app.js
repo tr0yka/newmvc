@@ -24,6 +24,8 @@ $(document).ready(function(){
             processData: false,
             contentType: false,
             success: function(data){
+                $('#popup').css({"display":"none"});
+                $('#userfile').val('');
                 console.log(data);
             }
         });
