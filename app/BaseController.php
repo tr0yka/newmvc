@@ -12,7 +12,7 @@ class BaseController{
     public function __construct(){
         $viewPath = ROOT.'/app/View.php';
         if(file_exists($viewPath)){
-            include $viewPath;
+            include_once $viewPath;
             $this->view = new View();
         }
     }

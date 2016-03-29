@@ -65,7 +65,7 @@ class DB extends Connection{
             }
             return $records;
         }else{
-            throw new \Exception('Не указаны критерии поиска');
+            throw new \Exception('РќРµ СѓРєР°Р·Р°РЅС‹ РєСЂРёС‚РµСЂРёРё РїРѕРёСЃРєР°');
         }
     }
 
@@ -142,7 +142,7 @@ class DB extends Connection{
                 return false;
             }
         }else{
-            throw new \Exception('Необходимо указать ID записи для удаления');
+            throw new \Exception('РќРµРѕР±С…РѕРґРёРјРѕ СѓРєР°Р·Р°С‚СЊ ID Р·Р°РїРёСЃРё РґР»СЏ СѓРґР°Р»РµРЅРёСЏ');
         }
     }
 
