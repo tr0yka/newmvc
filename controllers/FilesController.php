@@ -32,23 +32,20 @@ class FilesController extends BaseController{
             $res = $file->find($id);
             $f = $res[0];
             $data['file'] = array(
-                'filename' => $f->getOriginalName(),
-                'filesize' => $f->getFileSize(),
-                'filetype' => $f->getFileType(),
-                'decription' => $f->getDescription(),
+                'id' => $f->getId(),
+                'originalName' => $f->getOriginalName(),
+                'fileSize' => $f->getFileSize(),
+                'fileType' => $f->getFileType(),
+                'description' => $f->getDescription(),
                 'added' => $f->getAdded()
             );
-            echo json_encode($data);
         }else{
             foreach($this->errors as $error){
                $data['errors'][] = $error;
             }
             $data['file'] = '';
-//            $this->view->assign('title','Files Upload');
-//            $this->view->assign('errors',$this->errors);
-//            echo $this->view->parse('error');
-            echo json_encode($data);
         }
+        echo json_encode($data);
     }
 
     private function upload(){

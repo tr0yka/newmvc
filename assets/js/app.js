@@ -7,6 +7,9 @@ $(document).ready(function(){
     $('#close').click(function(){
         $('#popup').css({"display":"none"});
     });
+    $('#closeErrors').click(function(){
+        $('#errors').css({'display':'none'})
+    });
 
 
     $('#uploadFile').click(function(){
@@ -38,7 +41,12 @@ $(document).ready(function(){
                     $('#sort tbody').prepend(tr);
                     console.log(tr,file);
                 }else{
-
+                    var str = '';
+                    for(var i=0; i<file.errors.length;i++){
+                        str += file.errors[i]+'<br>';
+                    }
+                    $('#contentErrors').html(str);
+                    $('#errors').css({'display':'block'})
                 }
 
             }

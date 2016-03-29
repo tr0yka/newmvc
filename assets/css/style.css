@@ -110,3 +110,27 @@ table tbody td a:hover{
 #form_content textarea{
     height: 80px;
 }
+
+#errors{
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    width: 500px;
+    padding: 10px 0px;
+    margin-left: -250px;
+    background: #FFF;
+    border: 1px solid #DADADA;
+    box-shadow: 0px 0px 5px #ADADAD;
+}
+#closeErrors{
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    cursor: pointer;
+}
+#contentErrors{
+    width: 90%;
+    text-align: center;
+    color: red;
+}
