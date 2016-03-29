@@ -26,7 +26,21 @@ $(document).ready(function(){
             success: function(data){
                 $('#popup').css({"display":"none"});
                 $('#userfile').val('');
-                console.log(data);
+                var file = JSON.parse(data);
+                if(file.errors == ''){
+                    var tr = '<tr>'+
+                                '<td><a href="/files/download/?file='+file.file.id+'">'+file.file.originalName+'</a></td>'+
+                                '<td>'+parseInt(file.file.fileSize/1024)+'</td>'+
+                                '<td>'+file.file.fileType+'</td>'+
+                                '<td>'+file.file.description+'</td>'+
+                                '<td>'+file.file.added+'</td>'+
+                             '</tr>';
+                    $('#sort tbody').prepend(tr);
+                    console.log(tr,file);
+                }else{
+
+                }
+
             }
         });
         return false;
