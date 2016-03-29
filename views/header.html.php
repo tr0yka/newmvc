@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title><?=$title?></title>
+    <title><? echo $this->$title?></title>
 </head>
 <body>
+<? echo 'asdasd'; ?>

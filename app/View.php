@@ -4,8 +4,9 @@ namespace App\View;
 class View{
 
     private $vars = array();
-    private $tpldir = 'views/';
+    private $tpldir = '/views/';
     private $content_type = '';
+
     public function __get( $name ){
         if( isset($this->vars[$name]) )
             return $this->vars[$name];
@@ -17,12 +18,11 @@ class View{
         if( file_exists($file) ){
             return file_get_contents($file);
         }else{
-            console( 'Файл '.$file.' не найден ',__FILE__,__CLASS__,__LINE__ );
-            return '';
+            throw new \Exception('Файл '.$file.' не найден ');
         }
     }
     private function exec($file) {
-        eval('?>'.$this->safe( ROOT.$this->tpldir.$file.'.tpl') );
+        eval('?>'.$this->safe( ROOT.$this->tpldir.$file.'.php') );
     }
 
     public function assign( $var, $val='' ) {
@@ -37,7 +37,7 @@ class View{
         return ob_get_clean();
     }
     public function read( $file ){
-        return $this->safe( ROOT.$this->tpldir.$file.'.tpl' );
+        return $this->safe( ROOT.$this->tpldir.$file.'.php' );
     }
 
     public function show( $file,$vars = array() ) {
