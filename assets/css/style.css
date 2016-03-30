@@ -57,6 +57,23 @@ table tbody td a{
 table tbody td a:hover{
     text-decoration: underline;
 }
+
+th.headerSortUp {
+    background-image: url(../img/arrowdown.png);
+    background-size: 12px;
+    background-position-x: 99%;
+    background-position-y: 7px;
+    background-repeat: no-repeat;
+}
+
+th.headerSortDown {
+    background-image: url(../img/arrowup.png);
+    background-size: 12px;
+    background-position-x: 99%;
+    background-position-y: 7px;
+    background-repeat: no-repeat;
+}
+
 #footer{
     background: #5596C3;
     color: #FFF;
