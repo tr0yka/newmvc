@@ -11,6 +11,14 @@ $(document).ready(function(){
         $('#errors').css({'display':'none'})
     });
 
+    $('#filter>input').keypress(function(e){
+        var text = $(this).val();
+        if(e.keyCode == 13){
+            $.get('/files/filter/?filter='+text).done(function(data){
+                $('#sort tbody').html(data);
+            });
+        }
+    });
 
     $('#uploadFile').click(function(){
         var formData = new FormData();

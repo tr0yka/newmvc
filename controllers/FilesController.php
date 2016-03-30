@@ -61,6 +61,16 @@ class FilesController extends BaseController{
         echo json_encode($data);
     }
 
+    public function filterAction(){
+        if(isset($_GET['filter'])){
+            $files = $this->getModel('Files');
+            $filter = htmlspecialchars($_GET['filter']);
+            $res = $files->filter($filter);
+            $this->view->assign('files',$res);
+            echo $this->view->parse('filter');
+        }
+    }
+
     private function upload(){
         if(isset($_POST['fileUpload'])){
 

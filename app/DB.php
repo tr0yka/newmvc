@@ -70,10 +70,10 @@ class DB extends Connection{
     }
 
     public function filter($filter=null){
-        if($filter!=null){
+        if(!empty($filter)){
             $sql = "SELECT * FROM ".$this->table." WHERE originalName LIKE '%{$filter}%'";
         }else{
-            $query = "SELECT * FROM ".$this->table." ORDER BY added DESC";
+            $sql = "SELECT * FROM ".$this->table." ORDER BY added DESC";
         }
         $pr = $this->db->prepare($sql);
         $pr->execute();
