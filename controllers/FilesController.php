@@ -23,6 +23,19 @@ class FilesController extends BaseController{
 
     }
 
+    public function downloadAction(){
+        if(isset($_GET['file']) && is_numeric($_GET['file']) && !empty($_GET['file'])){
+            $id = $_GET['file'];
+            $file = $this->getModel('Files');
+            $res = $file->find($id);
+            $fileName = $res[0]->getOriginalName();
+            $fname = $res[0]->getFileName();
+            $filePath = $this->config->folder.$fname;
+            $fileSize = filesize($filePath);
+            $this->download($fileName,$filePath,$fileSize);
+        }
+    }
+
     public function uploadAction(){
         $id = $this->upload();
         $data = array();
@@ -93,6 +106,39 @@ class FilesController extends BaseController{
             return $id;
 
         }
+
+    }
+
+    private function download($name,$path,$size){
+        if ($_SERVER["HTTP_RANGE"]) { // проверяем, пришел ли заголовок Range
+            $range = $_SERVER["HTTP_RANGE"];
+            $range = str_replace('bytes=','', $range);
+            list($range_start,$range_end) = explode("-", $range);
+            header('HTTP/1.1 206 Partial Content');
+            header('Accept-Ranges: bytes');
+            header('Content-Range: bytes '.intval($range_start).'-'.intval($range_end).'/'.$size);
+        }
+        else {
+            $range_start=0;
+            $range_end=$size-1;
+            header('HTTP/1.1 200 Ok');
+        }
+        header('Content-Length: '.($range_end-$range_start+1));
+        header('Content-Type: application/octet-stream');
+        header('Content-disposition: inline; filename="'.$name.'"');
+        header("Last-Modified: ".date('r',filemtime($path)));
+        $fh=fopen($path,'rb');
+        fseek($fh,$range_start);
+        $position=$range_start;
+        $bufsize=1*1024*1024;
+        while ($buffer=fread($fh,$bufsize) && $position<$range_end) {
+            if ($position+$bufsize>$range_end){
+                $buffer=substr($buffer,0,$range_end-$position);
+            }
+            $position+=$bufsize;
+            print $buffer;
+        }
+        fclose($fh);
 
     }
 
