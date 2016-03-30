@@ -110,7 +110,7 @@ class FilesController extends BaseController{
     }
 
     private function download($name,$path,$size){
-        if ($_SERVER["HTTP_RANGE"]) { // проверяем, пришел ли заголовок Range
+        if ($_SERVER["HTTP_RANGE"]) {
             $range = $_SERVER["HTTP_RANGE"];
             $range = str_replace('bytes=','', $range);
             list($range_start,$range_end) = explode("-", $range);
@@ -125,18 +125,19 @@ class FilesController extends BaseController{
         }
         header('Content-Length: '.($range_end-$range_start+1));
         header('Content-Type: application/octet-stream');
-        header('Content-disposition: inline; filename="'.$name.'"');
+        header('Content-disposition: attachment; filename="'.$name.'"');
         header("Last-Modified: ".date('r',filemtime($path)));
         $fh=fopen($path,'rb');
         fseek($fh,$range_start);
         $position=$range_start;
-        $bufsize=1*1024*1024;
-        while ($buffer=fread($fh,$bufsize) && $position<$range_end) {
+        $bufsize= 512;
+        while ($buffer=fread($fh,$bufsize)) {
             if ($position+$bufsize>$range_end){
                 $buffer=substr($buffer,0,$range_end-$position);
             }
             $position+=$bufsize;
             print $buffer;
+            fflush($fh);
         }
         fclose($fh);
 
